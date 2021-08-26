@@ -1,0 +1,51 @@
+.home_center h1 {
+  color: white;
+  font-size: 3rem;
+  position: relative;
+}
+.home_center h1::after {
+  content: "";
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  width: 105%;
+  height: 3px;
+  background: white;
+}
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background: rgb(0, 29, 82);
+  padding: 20px 0;
+}
+.header h1 {
+  font-size: 1.2rem;
+  margin-left: 20px;
+  color: white;
+}
+
+.home_center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.home_center h2 {
+  text-transform: capitalize;
+  color: white;
+  margin-top: 20px;
+}
+
+.header button {
+  margin-right: 20px;
+  padding: 5px 15px;
+  border: 0;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.header button:hover {
+  background: rgb(224, 224, 224);
+}
