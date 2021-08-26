@@ -19,6 +19,7 @@ route.get("/home", authorize, async (req, res) => {
     });
     res.send({ user: allUsers }).status(200);
   } catch {
+    res.redirect("/login");
     console.log(err);
   }
 });

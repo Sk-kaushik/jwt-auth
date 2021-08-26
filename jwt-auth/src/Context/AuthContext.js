@@ -23,7 +23,7 @@ export const AuthContextProvider = (props) => {
 
   const login = (user) => {
     axios
-      .post("http://localhost:8080/login", {
+      .post("https://jwtauthproject.herokuapp.com/login", {
         email: user.email,
         password: user.password,
       })
@@ -38,9 +38,10 @@ export const AuthContextProvider = (props) => {
 
   const signup = (user) => {
     axios
-      .post("http://localhost:8080/signup", {
+      .post("https://jwtauthproject.herokuapp.com/signup", {
         username: user.username,
         email: user.email,
+
         password: user.password,
       })
       .then((res) => {
@@ -55,7 +56,7 @@ export const AuthContextProvider = (props) => {
   // GETTING THE USER ON SUCCESSFULL LOGGING IN BASED ON TOKENS
   const getUser = (token) => {
     axios
-      .get("http://localhost:8080/home", {
+      .get("https://jwtauthproject.herokuapp.com/home", {
         headers: {
           Authorization: "Bearer " + token,
         },

@@ -28,21 +28,22 @@ const MONGO_URI = `mongodb+srv://${Username}:${Password}@jwt-auth.1lt7q.mongodb.
 mongoose
   .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((result) => {
+    app.listen(PORT);
     console.log("connected to db");
   })
   .catch((err) => {
     console.log(err);
   });
 
+// app.use("/api", loginRoute);
+// app.use("/api", signupRoute);
+// app.use("/api", homeRoute);
+
 // Setting up routes
-app.use(loginRoute);
-app.use(signupRoute);
-app.use(homeRoute);
+app.use("/api", loginRoute);
+app.use("/api", signupRoute);
+app.use("/api", homeRoute);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("jwt-auth/build"));
 }
-
-app.listen(PORT, (req, res) => {
-  console.log("listening on port" + PORT);
-});
