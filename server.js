@@ -40,9 +40,9 @@ mongoose
 // app.use("/api", homeRoute);
 
 // Setting up routes
-app.use("/api", loginRoute);
-app.use("/api", signupRoute);
-app.use("/api", homeRoute);
+app.use(loginRoute);
+app.use(signupRoute);
+app.use(homeRoute);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("jwt-auth/build"));
