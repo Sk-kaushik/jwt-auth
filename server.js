@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-
+const path = require("path");
 const cors = require("cors");
 
 const app = express();
@@ -38,6 +38,10 @@ mongoose
 // app.use("/api", loginRoute);
 // app.use("/api", signupRoute);
 // app.use("/api", homeRoute);
+
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "jwt-auth/build", "index.html"));
+});
 
 // Setting up routes
 app.use(loginRoute);
