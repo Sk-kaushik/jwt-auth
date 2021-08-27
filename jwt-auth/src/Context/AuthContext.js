@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useState } from "react";
 import { authReducer } from "./Reducers/authReducer";
 
 import axios from "axios";
@@ -11,7 +11,6 @@ export const useAuthContext = () => {
 
 export const AuthContextProvider = (props) => {
   const initialState = {
-    isLoading: false,
     user: {},
     isError: false,
     hasAccessToken: localStorage.getItem("token") ? true : false,
@@ -20,8 +19,10 @@ export const AuthContextProvider = (props) => {
   };
 
   const [state, dispatch] = useReducer(authReducer, initialState);
+  const [isLoading, setIsLoading] = useState(false);
 
   const login = (user) => {
+    setIsLoading(true);
     axios
       .post("https://jwtauthproject.herokuapp.com/login", {
         email: user.email,
@@ -30,26 +31,31 @@ export const AuthContextProvider = (props) => {
       .then((res) => {
         dispatch({ type: "SUCCESS", payload: res.data });
         localStorage.setItem("token", JSON.stringify(res.data.token));
+        setIsLoading(false);
       })
       .catch((err) => {
         dispatch({ type: "ERROR", payload: err.response.data });
+        setIsLoading(false);
       });
   };
 
   const signup = (user) => {
+    setIsLoading(true);
+
     axios
       .post("https://jwtauthproject.herokuapp.com/signup", {
         username: user.username,
         email: user.email,
-
         password: user.password,
       })
       .then((res) => {
         dispatch({ type: "SUCCESS", payload: res.data });
         localStorage.setItem("token", JSON.stringify(res.data.token));
+        setIsLoading(false);
       })
       .catch((err) => {
         dispatch({ type: "ERROR", payload: err.response.data });
+        setIsLoading(false);
       });
   };
 
@@ -84,8 +90,9 @@ export const AuthContextProvider = (props) => {
     getUser,
     logout,
     removeErrors,
+    setIsLoading,
+    isLoading,
     user: state.user,
-    loading: state.isLoading,
     error: state.error,
     isError: state.isError,
     hasAccessToken: state.hasAccessToken,

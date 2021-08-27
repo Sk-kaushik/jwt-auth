@@ -3,11 +3,12 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useAuthContext } from "../../Context/AuthContext";
 
-import "../../styles/loginForm.css";
+import "../../styles/form.css";
+import Loader from "../Loader/Loader";
 
 const LoginForm = () => {
   // DATA FROM CONTEXT
-  const { hasAccessToken, isError, error, login, removeErrors } = useAuthContext();
+  const { hasAccessToken, isError, error, login, isLoading, removeErrors } = useAuthContext();
 
   // LOCAL STATES
   const [showPwd, setShowPwd] = useState(false);
@@ -105,11 +106,17 @@ const LoginForm = () => {
 
         <p id="error_text"></p>
         <div className="form-control">
-          <button onClick={loginUser}>Login</button>
+          {isLoading ? (
+            <button disabled>
+              <Loader />
+            </button>
+          ) : (
+            <button onClick={loginUser}>Login</button>
+          )}
         </div>
         <div className="footer">
           <p>
-            Not a member? <Link to="/signup">sign up</Link>
+            Not a member? <Link to="/signup">Sign up</Link>
           </p>
         </div>
       </div>

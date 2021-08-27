@@ -6,10 +6,11 @@ import { useAuthContext } from "../../Context/AuthContext";
 
 import { useHistory } from "react-router";
 
-import "../../styles/loginForm.css";
+import "../../styles/form.css";
+import Loader from "../Loader/Loader";
 
 const SignupForm = () => {
-  const { signup, hasAccessToken, loading, error, isError, removeErrors } = useAuthContext();
+  const { signup, hasAccessToken, loading, error, isError, isLoading, removeErrors } = useAuthContext();
 
   const [showPwd, setShowPwd] = useState(false);
   const [username, setUsername] = useState("");
@@ -121,13 +122,22 @@ const SignupForm = () => {
         </div>
         <p id="error_text"></p>
 
-        <div className="form-control">{loading ? <button>LOADING...</button> : <button onClick={signupUser}>Sign Up</button>}</div>
+        <div className="form-control">
+          {isLoading ? (
+            <button disabled>
+              <Loader />
+            </button>
+          ) : (
+            <button onClick={signupUser}>Signup</button>
+          )}
+        </div>
         <div className="footer">
           <p>
             Already a member? <Link to="/login">Login</Link>
           </p>
         </div>
       </div>
+      {isLoading && <Loader />}
     </div>
   );
 };

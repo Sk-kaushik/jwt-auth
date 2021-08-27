@@ -2,7 +2,6 @@ export const authReducer = (state, action) => {
   switch (action.type) {
     case "SUCCESS":
       return {
-        isLoading: false,
         isError: false,
         hasAccessToken: true,
         user: action.payload,
@@ -12,7 +11,6 @@ export const authReducer = (state, action) => {
 
     case "ERROR":
       return {
-        isLoading: false,
         isError: true,
         hasAccessToken: false,
         access_token: {},
@@ -21,7 +19,6 @@ export const authReducer = (state, action) => {
 
     case "REMOVE_TOKEN":
       return {
-        isLoading: false,
         isError: false,
         hasAccessToken: false,
         error: {},
@@ -29,7 +26,7 @@ export const authReducer = (state, action) => {
       };
 
     case "REMOVE_ERRORS":
-      return { ...state, isLoggedIn: false, isError: false, error: {} };
+      return { ...state, isError: false, error: {} };
 
     default:
       return state;

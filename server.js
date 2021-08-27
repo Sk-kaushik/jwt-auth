@@ -35,12 +35,14 @@ mongoose
     console.log(err);
   });
 
-// app.use("/api", loginRoute);
-// app.use("/api", signupRoute);
-// app.use("/api", homeRoute);
+app.use(express.static(path.join(__dirname, "/jwt-auth/build")));
 
-app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "jwt-auth/build", "index.html"));
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "/jwt-auth/build", "index.html"), function (err) {
+    if (err) {
+      res.status(500).send(err);
+    }
+  });
 });
 
 // Setting up routes
